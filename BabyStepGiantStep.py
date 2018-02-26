@@ -40,19 +40,27 @@ def getXYN4(data):
 
 # get x y n from ipv6 packet
 def getXYN6(data):
-        # next_header = data[12:14]
+        next_header = data[12:14]
+        print("payload length",int(data[8:12],16))
         data = data[80:]
-        if int(data[12:14], 16) == 17 or int(data[12:14], 16) == 58:
+        print("ip6 data : ",data)
+        # print(data[12:14],int(data[12:14], 16),int(next_header,16))
+        if int(next_header,16) == 17 or int(next_header,16) == 58:
+        # if int(data[12:14], 16) == 17:
+            data = data[40:]
+            print("protocol 58 or 17")
             # icmp packet
-            data = data[16:]
-            print(data)
+            # data = data[16:]
+            print("extracted icmp data : ",data)
             data = data.split('#')
             return int(data[0], 16), int(data[1], 16), int(data[2], 16)
 
-        if data[12:14] == 6:
+        elif int(next_header,16) == 6:
             # TCP data
+            print("protocol 6")
             # tcp_header_length = int(data[24:25], 16) * 8
             data = data[int(data[24:25], 16) * 8:]
+            print("extracted tcp data : ",data)
             data = data.split("#")
             return int(data[0], 16), int(data[1], 16), int(data[2], 16)
 # 
@@ -148,10 +156,10 @@ if __name__ == "__main__":
             if (version==4):
                 print("version 4 ")
                 x, y, n = getXYN4(data)
-                print(x, y, n)
+                print("xyn",x, y, n)
                 solve(y, n, x)
             elif (version==6):
                 print("version 6")
                 x, y, n = getXYN6(data)
-                print(x, y, n)
+                print("xyn",x, y, n)
                 solve(y, n, x)
