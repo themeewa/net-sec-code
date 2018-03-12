@@ -25,27 +25,36 @@ def extended_eu_a(e,phiN):
 def cyclic(e,N):
 	with open("./output_rahul.txt", "a") as ofile:
 		C = int(input("enter the ciphertext C : "))
+		ofile.write("\ngiven value e : "+str(e))
+		ofile.write("\n given ciphertext C : "+str(C))
 		k = 1
 		flag = 1
 		counter = 0
 		while(flag == 1):
 			print("counter : ",counter)
+			ofile.write("\ncounter : "+str(counter))
 			counter = counter+1
 			A = pow(C,pow(e,k),N)
 			if (A == C):
 				M = pow(C,pow(e,k-1),N)
-				ofile.write("\nfound order k : "+str(k))
-				print("found order k : ",k)
+				ofile.write(", A = "+str(A)+" matched with ciphertext  : "+str(C))
+				ofile.write("\nSo order k : "+str(k))
+				ofile.write("\ndecoded M : "+str(M))
+				print("A="+str(A)+" not matched with C="+str(C)+", So order k : ",k)
 				print("M, C : ",M,C)
 				flag = 0
 			else:
+				ofile.write(", A = "+str(A)+" not matched with C"+str(C))
+				print("A "+str(A)+" not matched with C "+str(C))
 				k= k+1
 def computeNphiN(P,Q):
 	with open("./output_rahul.txt", "a") as ofile:
 		N = P*Q
 		phiN = (P-1)*(Q-1)
-		ofile.write("\ncomputing N = (P*Q) : "+str(N))
-		ofile.write("\ncomputing phi(N) = (P-1)*(Q-1) : "+str(phiN))
+		ofile.write("\ngiven value P : "+str(P))
+		ofile.write("\ngiven value Q : "+str(Q))
+		ofile.write("\ncomputed N = (P*Q) : "+str(N))
+		ofile.write("\ncomputed phi(N) = (P-1)*(Q-1) : "+str(phiN))
 		print("computing N = (P*Q) : ",N)
 		print("computing phi(N) = (P-1)*(Q-1) : ",phiN)
 		return N,phiN
@@ -54,13 +63,16 @@ def main():
 	with open("./output_rahul.txt", "a") as ofile:
 		P = int(input("enter number P : "))
 		Q = int(input("enter number Q : "))
+		# ofile.write("\ngiven value P : "+str(P))
+		# ofile.write("\ngiven value Q : "+str(Q))
 		N,phiN = computeNphiN(P,Q)
 		e=int(input("enter the 'e' : "))
+		# ofile.write("\ngiven value e : "+str(e))
 		# N=int(input("enter the 'N' : "))
 		cyclic(e,N)
 		d = extended_eu_a(e,phiN)
 		d = d if d > 0 else phiN+d
 		ofile.write("\nvalue of d : "+str(d))
 		print("value of  d : ",d)
-		ofile.write("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+		ofile.write("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
 main()
