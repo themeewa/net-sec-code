@@ -24,7 +24,9 @@ def extended_eu_a(e,phiN):
 	return old_s
 def cyclic(e,N):
 	with open("./output_rahul.txt", "a") as ofile:
+		#change: stringify for file write
 		C = int(input("enter the ciphertext C : "))
+		#change: stringify for file write
 		ofile.write("\ngiven value e : "+str(e))
 		ofile.write("\n given ciphertext C : "+str(C))
 		k = 1
@@ -32,11 +34,13 @@ def cyclic(e,N):
 		counter = 0
 		while(flag == 1):
 			print("counter : ",counter)
+			#change: stringify for file write
 			ofile.write("\ncounter : "+str(counter))
 			counter = counter+1
 			A = pow(C,pow(e,k),N)
 			if (A == C):
 				M = pow(C,pow(e,k-1),N)
+				#change: stringify for file write
 				ofile.write(", A = "+str(A)+" matched with ciphertext  : "+str(C))
 				ofile.write("\nSo order k : "+str(k))
 				ofile.write("\ndecoded M : "+str(M))
@@ -44,6 +48,7 @@ def cyclic(e,N):
 				print("M, C : ",M,C)
 				flag = 0
 			else:
+				#change: stringify for file write
 				ofile.write(", A = "+str(A)+" not matched with C"+str(C))
 				print("A "+str(A)+" not matched with C "+str(C))
 				k= k+1
@@ -51,6 +56,7 @@ def computeNphiN(P,Q):
 	with open("./output_rahul.txt", "a") as ofile:
 		N = P*Q
 		phiN = (P-1)*(Q-1)
+		#change: stringify for file write
 		ofile.write("\ngiven value P : "+str(P))
 		ofile.write("\ngiven value Q : "+str(Q))
 		ofile.write("\ncomputed N = (P*Q) : "+str(N))
@@ -61,17 +67,15 @@ def computeNphiN(P,Q):
 
 def main():
 	with open("./output_rahul.txt", "a") as ofile:
+		#change: converting in integer
 		P = int(input("enter number P : "))
 		Q = int(input("enter number Q : "))
-		# ofile.write("\ngiven value P : "+str(P))
-		# ofile.write("\ngiven value Q : "+str(Q))
-		N,phiN = computeNphiN(P,Q)
 		e=int(input("enter the 'e' : "))
-		# ofile.write("\ngiven value e : "+str(e))
-		# N=int(input("enter the 'N' : "))
+		N,phiN = computeNphiN(P,Q)
 		cyclic(e,N)
 		d = extended_eu_a(e,phiN)
 		d = d if d > 0 else phiN+d
+		#change: stringify for file write
 		ofile.write("\nvalue of d : "+str(d))
 		print("value of  d : ",d)
 		ofile.write("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
