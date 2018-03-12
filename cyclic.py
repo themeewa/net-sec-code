@@ -18,7 +18,7 @@ def extended_eu_a(e,phiN):
 	r = phiN; old_r = e
 	while r != 0:
 		quotient = old_r//r
-		old_r, r = r, old_r%r
+		old_r, r = r, old_r - quotient*r
 		old_s, s = s, old_s - quotient*s
 		old_t, t = t, old_t - quotient*t
 	return old_s
