@@ -1,15 +1,15 @@
 from random import randint
 def getinv(r1,n):
 	# with open("./output_rahul.txt", "a") as ofile:
-	x = 1
+	val = 1
 	while (True):
-		y = (x * r1) % n
+		y = pow((x * r1),1,n)
 		if y == 1:
 			break
-		else:
-			x = x + 1
-	print("\ncalculated r-inverse : ",str(x))
-	return x
+# 			exiting the inverse fun
+		val = val + 1
+	print("\ncalculated r-inverse : ",str(val))
+	return val
 def calcS(e,d,c,n):
 	with open("./output_rahul.txt", "a") as ofile:
 		ofile.write("\ngiven value e : "+str(e))
