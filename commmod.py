@@ -32,16 +32,24 @@ def getciphers(e1,e2,n):
 def commN(x,y,c1,c2,N):
 	if (x<=0):
 		print("x is negative")
+		c1 = pow(c1,(x*-1),N)
 		temp = extended_eu_a(c1,N)
-		c1 = int(temp[0])
-		return commN(x,y,c1,c2,N)
+		# if(temp[1]<0):
+		# 	temp[1]=int(temp[1])+c1
+		c11 = int(temp[0])
+		print("inverse",c11)
+		c22=pow(c2,y)
 	if (y<=0):
 		print("x is negative")
+		c2 = pow(c2,(y*-1),N)
 		temp = extended_eu_a(c2,N)
-		c2 = int(temp[0])
-		return commN(x,y,c1,c2,N)
-	c11=pow(c1,x)
-	c22=pow(c2,y)
+		# if(temp[1]<0):
+		# 	temp[1]=int(temp[1])+c2
+		c22 = int(temp[0])
+		print("inverse",c22)
+		c11=pow(c1,x)
+	
+	
 	c12 = int(c11*c22)
 	m = c12%N
 	return m
